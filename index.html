@@ -1,76 +1,689 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Pierre Taylor Portfolio</title>
-<meta charset="UTF-8">
-<style>
-body{
-font-family: Georgia, serif;
-margin:40px;
-background:#f5f5f5;
-color:#222;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pierre Taylor | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f3ee;
+      --paper: rgba(255,255,255,0.82);
+      --paper-solid: #ffffff;
+      --text: #171717;
+      --muted: #5e5e5e;
+      --soft: #8f8f8f;
+      --line: rgba(23,23,23,0.10);
+      --accent: #1f3a5f;
+      --accent-2: #8d6e3b;
+      --shadow: 0 20px 60px rgba(23,23,23,0.08);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --max: 1180px;
+    }
 
-h1{
-font-size:42px;
-}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(31,58,95,0.06), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(141,110,59,0.08), transparent 26%),
+        var(--bg);
+      line-height: 1.6;
+    }
 
-nav a{
-margin-right:20px;
-text-decoration:none;
-color:#333;
-font-weight:bold;
-}
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-section{
-margin-top:40px;
-}
-</style>
+    .container {
+      width: min(calc(100% - 2rem), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(246,243,238,0.82);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem 0;
+    }
+
+    .brand-eyebrow {
+      margin: 0 0 0.2rem;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--soft);
+    }
+
+    .brand-name {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1rem;
+      align-items: center;
+    }
+
+    .nav a {
+      font-size: 0.96rem;
+      color: var(--muted);
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav a:hover { color: var(--text); transform: translateY(-1px); }
+
+    .hero {
+      padding: 5rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.65);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .hero-main {
+      padding: 2.6rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      font-size: 0.77rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .hero h2 {
+      margin: 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 5vw, 4.8rem);
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      margin: 1.35rem 0 0;
+      max-width: 62ch;
+      font-size: 1.08rem;
+      color: var(--muted);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border-radius: 999px;
+      padding: 0.95rem 1.35rem;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(23,23,23,0.10);
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.75);
+      border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .mini-card {
+      border-radius: 24px;
+      padding: 1.35rem;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid var(--line);
+    }
+
+    .mini-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+    }
+
+    .mini-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    section.section {
+      padding: 1rem 0 4.25rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .section-header h3 {
+      margin: 0.25rem 0 0;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3vw, 2.7rem);
+      letter-spacing: -0.03em;
+    }
+
+    .section-header p {
+      margin: 0;
+      max-width: 52ch;
+      color: var(--muted);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 1.25rem;
+    }
+
+    .stats {
+      display: grid;
+      gap: 0.9rem;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      margin-top: 1.2rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 1.1rem;
+    }
+
+    .project-card {
+      padding: 1.35rem;
+      background: rgba(255,255,255,0.82);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 40px rgba(23,23,23,0.10);
+    }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .project-card h4 {
+      margin: 0 0 0.55rem;
+      font-size: 1.2rem;
+      line-height: 1.25;
+    }
+
+    .project-card p {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.96rem;
+    }
+
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+
+    .text-link {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid rgba(23,23,23,0.28);
+    }
+
+    .embed-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1.1rem;
+    }
+
+    .embed-card {
+      padding: 1.2rem;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.82);
+      box-shadow: var(--shadow);
+    }
+
+    .embed-card h4 {
+      margin: 0 0 0.4rem;
+      font-size: 1.1rem;
+    }
+
+    .embed-card p {
+      margin: 0 0 0.9rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .embed-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      background: #e9e3d9;
+      border: 1px solid rgba(23,23,23,0.08);
+      min-height: 280px;
+    }
+
+    .embed-frame iframe,
+    .embed-frame object,
+    .embed-frame embed {
+      width: 100%;
+      height: 100%;
+      min-height: 280px;
+      border: 0;
+      display: block;
+    }
+
+    .youtube-frame iframe { aspect-ratio: 16 / 9; min-height: auto; }
+    .spotify-frame iframe { min-height: 352px; }
+    .pdf-frame { min-height: 520px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .contact-box {
+      min-width: 260px;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .contact-item {
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.75);
+    }
+
+    .footer {
+      padding: 1.5rem 0 3rem;
+      color: var(--soft);
+      font-size: 0.92rem;
+    }
+
+    .muted { color: var(--muted); }
+
+    @media (max-width: 1040px) {
+      .hero-grid,
+      .about-grid,
+      .project-grid,
+      .embed-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav {
+        gap: 0.8rem 1rem;
+      }
+
+      .hero {
+        padding-top: 3.5rem;
+      }
+
+      .hero-main,
+      .card {
+        padding: 1.45rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div>
+        <p class="brand-eyebrow">Professional Portfolio</p>
+        <h1 class="brand-name">Pierre Taylor</h1>
+      </div>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#audio">Audio</a>
+        <a href="#video">Video</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-<h1>Pierre Taylor</h1>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="card hero-main">
+          <p class="eyebrow">Broadcasting • Writing • Audio Production</p>
+          <h2>Professional media portfolio with editorial polish.</h2>
+          <p>
+            I am a student and creative practitioner with interests in broadcasting, journalism, music, audio engineering, and presentation design. This site is built to showcase writing, recorded media, portfolio projects, and professional application materials in one clean place.
+          </p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#projects">View Featured Work</a>
+            <a class="btn btn-secondary" href="#contact">Contact</a>
+          </div>
+        </div>
 
-<nav>
-<a href="#about">About</a>
-<a href="#writing">Writing</a>
-<a href="#audio">Audio Projects</a>
-<a href="#creative">Creative Work</a>
-<a href="#contact">Contact</a>
-</nav>
+        <div class="hero-side">
+          <div class="mini-card">
+            <h3>PDF-ready portfolio</h3>
+            <p>Embed writing samples, resumes, newspapers, and polished project PDFs directly into the site.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Audio showcase</h3>
+            <p>Feature Spotify releases, recordings, and sound-focused work in a clean embedded format.</p>
+          </div>
+          <div class="mini-card">
+            <h3>Video section</h3>
+            <p>Display YouTube performances, interviews, broadcasts, or creative work with dedicated space.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="about">
-<h2>About</h2>
-<p>
-Student interested in broadcasting, audio engineering, and journalism.
-Currently pursuing an audiovisual technician certificate while studying
-audio recording and media production.
-</p>
-</section>
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">About</p>
+            <h3>Professional profile</h3>
+          </div>
+          <p>
+            This layout is designed to feel polished and credible for internship, media, and creative applications while still giving you room to show personality and range.
+          </p>
+        </div>
 
-<section id="writing">
-<h2>Writing</h2>
-<p>
-Crime and Punishment Newspaper Project  
-<a href="gazette.pdf">View Project</a>
-</p>
-</section>
+        <div class="about-grid">
+          <div class="card">
+            <p class="muted">
+              My work sits at the intersection of communication, technical production, and creative presentation. I am especially interested in how writing, audio, and visual media come together in professional broadcast environments.
+            </p>
+            <div class="stats">
+              <div class="stat">
+                <strong>Writing</strong>
+                <span class="muted">Editorial projects, essays, and literary analysis</span>
+              </div>
+              <div class="stat">
+                <strong>Audio</strong>
+                <span class="muted">Recording, sound systems, and music production</span>
+              </div>
+              <div class="stat">
+                <strong>Leadership</strong>
+                <span class="muted">Event planning, teamwork, logistics, and communication</span>
+              </div>
+              <div class="stat">
+                <strong>Media</strong>
+                <span class="muted">Broadcasting interest, presentation, and professional growth</span>
+              </div>
+            </div>
+          </div>
 
-<section id="audio">
-<h2>Audio Projects</h2>
-<p>Avant-garde album released on Spotify and Amazon Music.</p>
-</section>
+          <div class="card">
+            <p>
+              Replace this paragraph with your own biography. A strong version would mention your interest in broadcasting, your audio recording coursework, your musical background, your leadership experience with Rio Americano Band Boosters, and your interest in editorial and technical media work.
+            </p>
+            <p class="muted">
+              You can also mention your KCRA recording experience here for immediate relevance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<section id="creative">
-<h2>Creative Projects</h2>
-<p>Roblox historical instrument builds and archival design work.</p>
-</section>
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Featured Work</p>
+            <h3>Selected portfolio projects</h3>
+          </div>
+          <p>Each card can link outward, open a PDF, or jump to an embedded section lower on the page.</p>
+        </div>
 
-<section id="contact">
-<h2>Contact</h2>
-<p>Email: your@email.com</p>
-</section>
+        <div class="project-grid">
+          <article class="project-card">
+            <span class="project-tag">Editorial</span>
+            <h4>St. Petersburg Gazette</h4>
+            <p>A creative journalism and literary project presented in the style of a historical newspaper.</p>
+            <div class="project-links">
+              <a class="text-link" href="#writing">View PDF section</a>
+              <a class="text-link" href="ST.-PETERSBURG%20GAZETTE%20(9).pdf" target="_blank">Open PDF</a>
+            </div>
+          </article>
 
+          <article class="project-card">
+            <span class="project-tag">Audio</span>
+            <h4>Spotify Release</h4>
+            <p>Embed your music or audio work directly into the site for a clean listening experience.</p>
+            <div class="project-links">
+              <a class="text-link" href="#audio">Go to audio embeds</a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <span class="project-tag">Video</span>
+            <h4>YouTube Highlights</h4>
+            <p>Add performances, interviews, presentations, or broadcast clips in a dedicated video area.</p>
+            <div class="project-links">
+              <a class="text-link" href="#video">Go to video embeds</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Writing & PDFs</p>
+            <h3>Embedded documents</h3>
+          </div>
+          <p>Upload your PDF to the same GitHub Pages folder, then point the embed to the file name.</p>
+        </div>
+
+        <div class="embed-grid">
+          <div class="embed-card">
+            <h4>St. Petersburg Gazette</h4>
+            <p>Replace the file name below if you rename your uploaded PDF.</p>
+            <div class="embed-frame pdf-frame">
+              <iframe src="ST.-PETERSBURG%20GAZETTE%20(9).pdf"></iframe>
+            </div>
+          </div>
+
+          <div class="embed-card">
+            <h4>Resume or Additional Writing Sample</h4>
+            <p>Duplicate this card for more PDFs, essays, resumes, or certificates.</p>
+            <div class="embed-frame pdf-frame">
+              <iframe src="resume.pdf"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="audio" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Audio</p>
+            <h3>Spotify embeds</h3>
+          </div>
+          <p>Paste the Spotify embed link into the iframe src. Album, track, or playlist embeds all work.</p>
+        </div>
+
+        <div class="embed-grid">
+          <div class="embed-card">
+            <h4>Featured release</h4>
+            <p>Replace the src below with your Spotify embed URL.</p>
+            <div class="embed-frame spotify-frame">
+              <iframe src="https://open.spotify.com/embed/track/11dFghVXANMlKmJXsNCbNl?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+          </div>
+
+          <div class="embed-card">
+            <h4>Second audio feature</h4>
+            <p>Use this for another track, album, or playlist.</p>
+            <div class="embed-frame spotify-frame">
+              <iframe src="https://open.spotify.com/embed/album/1DFixLWuPkv3KT3TnV35m3?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="video" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Video</p>
+            <h3>YouTube embeds</h3>
+          </div>
+          <p>Paste YouTube embed URLs here for performances, reels, project demos, or broadcast segments.</p>
+        </div>
+
+        <div class="embed-grid">
+          <div class="embed-card">
+            <h4>Featured video</h4>
+            <p>Replace the video ID in the iframe URL with your own YouTube embed link.</p>
+            <div class="embed-frame youtube-frame">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Featured YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          </div>
+
+          <div class="embed-card">
+            <h4>Second video</h4>
+            <p>Use this block for a second clip, interview, performance, or reel.</p>
+            <div class="embed-frame youtube-frame">
+              <iframe src="https://www.youtube.com/embed/jNQXAC9IVRw" title="Second YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h3>Professional links</h3>
+          </div>
+          <p>Use this area for email, GitHub, LinkedIn, resume download, and a short application note.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card">
+            <p>
+              You can tailor this site for internship applications by adding a short line such as: “For internship, media, and collaborative opportunities, please feel free to reach out.”
+            </p>
+          </div>
+
+          <div class="card contact-box">
+            <div class="contact-list">
+              <div class="contact-item"><strong>Email:</strong> yourname@email.com</div>
+              <div class="contact-item"><strong>GitHub:</strong> github.com/yourusername</div>
+              <div class="contact-item"><strong>LinkedIn:</strong> linkedin.com/in/yourprofile</div>
+              <div class="contact-item"><strong>Resume:</strong> <a class="text-link" href="resume.pdf" target="_blank">Open PDF</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      Built as a clean GitHub Pages portfolio template. Replace placeholder text, embeds, and files with your own materials.
+    </div>
+  </footer>
 </body>
 </html>
